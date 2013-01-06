@@ -1,0 +1,68 @@
+
+// protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/ramppackets.proto
+// protoc -I=. --java_out=. ./ramppackets.proto
+
+option java_package = "it.unibo.deis.lia.ramp.core.e2e";
+option java_outer_classname = "RampPacketsProtos";
+
+message UnicastHeader{
+	repeated int32 dest = 1;
+	repeated int32 source = 2;
+	
+	required int32 destPort = 3;
+	optional int32 destNodeId = 4 [default = 0];
+	optional int32 sourceNodeId = 5 [default = 0];
+	
+	required bool ack = 6;
+	optional int32 sourcePortAck = 7;
+	
+	required int32 currentHop = 8 [default = 0];
+	
+	required int32 bufferSize = 9 [default = 51250];
+	
+	required int32 retry = 10 [default = 0];
+	optional int32 timeWait = 11;
+	
+	required int32 connectTimeout = 12 [default = 500];
+}
+
+message UnicastPacket{
+	repeated int32 dest = 1;
+	repeated int32 source = 2;
+	
+	required int32 destPort = 3;
+	optional int32 destNodeId = 4 [default = 0];
+	optional int32 sourceNodeId = 5 [default = 0];
+	
+	required bool ack = 6;
+	optional int32 sourcePortAck = 7;
+	
+	required int32 currentHop = 8 [default = 0];
+	
+	required int32 bufferSize = 9 [default = 51250];
+	
+	required int32 retry = 10 [default = 0];
+	optional int32 timeWait = 11;
+	
+	required int32 connectTimeout = 12 [default = 500];
+	
+	required bytes payload = 13;
+}
+	
+message BroadcastPacket{
+	repeated int32 source = 1;
+	repeated int32 traversedIds = 2;
+	
+	optional int32 sourceNodeId = 3 [default = 0];
+	
+	required int32 ttl = 4;
+	required int32 destPort = 5;
+	
+	required bytes payload = 6;
+}
+
+message HeartbeatRequest{
+}
+
+message HeartbeatResponse{
+}
